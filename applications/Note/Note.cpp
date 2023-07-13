@@ -67,6 +67,12 @@ void Note::Setup() {
       "Split View", Color(0xFFFFFF), [&]() -> bool { return splitView; }, [&]() -> void { splitView = !splitView; });
   actionMenu.AddUIComponent(splitViewToggle, Point(1, 0));
 
+  // Flip key map
+  UIButtonDimmable flipViewToggle(
+      "Flip View", Color(0xff5000), [&]() -> bool { return notePadConfigs[activeConfig].flip; },
+      [&]() -> void { notePadConfigs[activeConfig].flip = !notePadConfigs[activeConfig].flip; });
+  actionMenu.AddUIComponent(flipViewToggle, Point(2, 0));
+
   UIButtonWithColorFunc notepad1SelectBtn(
       "Note Pad 1", [&]() -> Color { return notePadConfigs[0].color.ToLowBrightness(activeConfig.Get() == 0); }, [&]() -> void { activeConfig = 0; });
   actionMenu.AddUIComponent(notepad1SelectBtn, Point(3, 0));

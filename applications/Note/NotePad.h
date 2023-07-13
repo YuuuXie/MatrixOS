@@ -16,6 +16,7 @@ struct NoteLayoutConfig {
   bool velocitySensitive = true;
   Color color = Color(0x00FFFF);
   Color rootColor = Color(0x0040FF);
+  bool flip = false;
 };
 
 class NotePad : public UIComponent {
@@ -46,7 +47,12 @@ class NotePad : public UIComponent {
     uint8_t rootCount = 0;
     for (int8_t y = 0; y < dimension.y; y++)
     {
-      int8_t ui_y = dimension.y - y - 1;
+      int8_t ui_y;
+      if (config->flip) {
+        ui_y = y;
+      } else {
+        ui_y = dimension.y - y - 1;
+      }
       if(config->overlap && config->overlap < dimension.x)
       { 
         if(y != 0) nextNote = noteMap[(ui_y + 1) * dimension.x + config->overlap]; 
